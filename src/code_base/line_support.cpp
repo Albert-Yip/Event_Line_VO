@@ -21,7 +21,7 @@ namespace event_mapping
 
 uint64_t SCOPE::idGenerator_ = 0;
 
-SCOPE::LineSupport(Eigen::Array<LineLevelPixel*, 128, 128>* pixelMap,
+SCOPE::LineSupport(Eigen::Array<LineLevelPixel*, ROWS_, COLS_>* pixelMap,
                    std::list<LineSupport*>* lines)
     : size_(0), x_center_(0.0f), y_center_(0.0f), m00(0), m01(0), m10(0),
       m11(0), m20(0), m02(0), angle_(INVALID_ANGLE),coinptr_(nullptr)

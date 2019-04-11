@@ -23,7 +23,10 @@
 #include <stdint.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
+#define EIGEN_STACK_ALLOCATION_LIMIT 1000000  //DEBUG
 #include <eigen3/Eigen/Core>
+
 #include <mutex>
 
 #include "dvs_edge_aug/eventbuffer.hpp"

@@ -18,6 +18,8 @@
 #include <eigen3/Eigen/Core>
 #include <mutex>
 
+#define ROWS_ 180
+#define COLS_ 240
 
 
 namespace event_mapping{
@@ -41,7 +43,7 @@ public:
    * \brief LineSupport
    * \param pixelMap
    */
-  LineSupport( Eigen::Array<LineLevelPixel*, 128, 128> *pixelMap, std::list<LineSupport*> *lines);
+  LineSupport( Eigen::Array<LineLevelPixel*, ROWS_, COLS_> *pixelMap, std::list<LineSupport*> *lines);
   ~LineSupport();
 
   /*!
@@ -199,9 +201,9 @@ protected:
 
   std::list<LineSupport*> *lines_;
 
-  Eigen::Array<LineLevelPixel* , 128, 128> *pixelMap_;
+  Eigen::Array<LineLevelPixel* , ROWS_, COLS_> *pixelMap_;
 
-  Eigen::Array<float_t, 128, 128> *angles_;
+  Eigen::Array<float_t, ROWS_, COLS_> *angles_;
 
   uint64_t id_;
 

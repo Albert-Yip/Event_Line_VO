@@ -31,6 +31,7 @@ int main(int argc, char const *argv[])
     ifstream fin("~/Data/shapes_6dof/events.txt");
     Event new_event;
     int counter = 0;
+    cout<<"Start reading file\n";
     while(read_event(fin, new_event))
     {
         counter++;

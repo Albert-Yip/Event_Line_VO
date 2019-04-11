@@ -45,9 +45,10 @@ include_directories(
 # add_library(${PROJECT_NAME} STATIC
 #   ${${PROJECT_NAME}_CODE_BASE}
 # )
-add_executable(${PROJECT_NAME} src/test.cpp ${${PROJECT_NAME}_CODE_BASE})  
+add_executable(test1 src/test.cpp src/code_base/line_support.cpp)  
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries(
+  test1
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
 )
