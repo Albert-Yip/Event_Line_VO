@@ -259,11 +259,25 @@ namespace event_mapping{
   }
 
 
+
+  TMP
+  void SCOPE::showLines(){
+   for(auto it = lines_.begin(); it != lines_.end();++it){
+      if((*it)!=nullptr){
+        if((*it)->getSize()>params.minDisplaySize_ && (*it)->major_axis_ > 3* (*it)->minor_axis_){
+
+          cv::Point first = (*it)->getFirst();
+          cv::Point second = (*it)->getSecond();
+          cv::line(lineSupportVis_,first,second,cv::Scalar(((*it)->getColor()).x,((*it)->getColor()).y,((*it)->getColor()).z),1);
+        }
+      }
+     }    
+  }
+
+
+
   TMP
   void SCOPE::render(){
-
-
-
   if(params.visualizeIntegrated_){
 
       std::lock_guard<std::mutex> lock(eventMutex_);
@@ -290,17 +304,17 @@ namespace event_mapping{
    {
        std::lock_guard<std::mutex> lock(eventMutex_);
 
-   for(int i =  0; i<COLS;++i){
-      for(int j = 0; j<ROWS;++j){
-        if((pixelMap_(i,j)->lineSupport_!= 0x0)){
-          if(pixelMap_(i,j)->lineSupport_->getSize() > params.minDisplaySize_){
+  //  for(int i =  0; i<COLS;++i){
+  //     for(int j = 0; j<ROWS;++j){
+  //       if((pixelMap_(i,j)->lineSupport_!= 0x0)){
+  //         if(pixelMap_(i,j)->lineSupport_->getSize() > params.minDisplaySize_){
 
-            lineSupportVis_.at<cv::Point3f>(j,i) = pixelMap_(i,j)->lineSupport_->getColor();
-          }
+  //           lineSupportVis_.at<cv::Point3f>(j,i) = pixelMap_(i,j)->lineSupport_->getColor();
+  //         }
 
-        }
-      }
-    }
+  //       }
+  //     }
+  //   }
 
    for(auto it = lines_.begin(); it != lines_.end();++it){
       if((*it)!=nullptr){

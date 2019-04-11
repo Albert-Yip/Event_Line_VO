@@ -68,6 +68,12 @@ public:
   /*!
    * \brief Render preview images
    */
+  void showLines();
+
+
+  /*!
+   * \brief Render preview images
+   */
   void render();
 
 

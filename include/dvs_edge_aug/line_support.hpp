@@ -18,9 +18,10 @@
 #include <eigen3/Eigen/Core>
 #include <mutex>
 
-#define ROWS_ 180
-#define COLS_ 240
-
+// #define ROWS_ 180
+// #define COLS_ 240
+#define ROWS_ 128
+#define COLS_ 128
 
 namespace event_mapping{
 
@@ -246,8 +247,6 @@ struct LineLevelPixel{
   }
 
   LineSupport* lineSupport_;
-
-
   float_t angle_;
   uint16_t x;
   uint16_t y;

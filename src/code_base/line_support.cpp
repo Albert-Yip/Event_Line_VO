@@ -165,7 +165,7 @@ void SCOPE::calculateLine()
 
   // Calculate ratio of major axis to minor axis
   major_axis_ = length;
-  minor_axis_ = minor_axis;
+  minor_axis_ = minor_axis;//椭圆的长轴和短轴
 }
 
 void SCOPE::merge(LineSupport* ls)
