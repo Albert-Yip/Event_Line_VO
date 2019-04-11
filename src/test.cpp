@@ -22,7 +22,7 @@ istream &read_event(istream &is, Event &new_event)
     new_event.timestamp = uint64_t (tmp_timestamp*1e9);
     // new_event.x = new_event.x % 128;
     // new_event.y = new_event.y % 128;
-    cout<<new_event.timestamp<<","<<new_event.x<<","<<new_event.y<<","<<new_event.polarity<<endl;
+    // cout<<new_event.timestamp<<","<<new_event.x<<","<<new_event.y<<","<<new_event.polarity<<endl;
     return is;
 }
 
@@ -37,28 +37,47 @@ int main(int argc, char const *argv[])
     ifstream fin("/home/albert/Data/poster_6dof/events.txt");
     Event new_event;
     int counter = 0;
+    int show_counter = 1;
     cout<<"Start reading file\n";
     Elised<128,128> line_detector(0xff);
+    cv::namedWindow("win_1", CV_WINDOW_NORMAL); 
+    cv::namedWindow("win_2", CV_WINDOW_NORMAL); 
     while(read_event(fin, new_event))
     {
         counter++;
         // cout<<counter<<" "<<new_event.timestamp<<" "<<new_event.x<<endl;
-        if(counter>100000)
+        if(counter>10000000)
             break;        
+
         // Elised<240,180> line_detector(0xff);
         if(new_event.x >= 128 || new_event.y >= 128)
             continue;
 
         line_detector.push(new_event.x, new_event.y, new_event.polarity, new_event.timestamp);
+
+        
+        if(counter/10000==show_counter)
+        {
+            line_detector.showLines();
+            line_detector.render();
+            cv::imshow("win_1",line_detector.getVisualizedIntegrated());
+            cv::imshow("win_2",line_detector.getVisualizedElised());
+            cv::waitKey(50);   
+            show_counter++;         
+        }
     }
-    line_detector.render();
+    cout<<"\n\nThat's all!\n";
+    cv::waitKey();
+    // line_detector.render();
     // line_detector.getVisualizedIntegrated();
     // line_detector.getVisualizedElised();
-    cv::namedWindow("win_1", CV_WINDOW_NORMAL); 
-    cv::namedWindow("win_2", CV_WINDOW_NORMAL); 
-    cv::imshow("win_1",line_detector.getVisualizedIntegrated());
-    cv::imshow("win_2",line_detector.getVisualizedElised());
-    cv::waitKey();
+    // line_detector.showLines();
+    // cv::waitKey();
+    // cv::namedWindow("win_1", CV_WINDOW_NORMAL); 
+    // cv::namedWindow("win_2", CV_WINDOW_NORMAL); 
+    // cv::imshow("win_1",line_detector.getVisualizedIntegrated());
+    // cv::imshow("win_2",line_detector.getVisualizedElised());
+    // cv::waitKey();
     return 0;
 }
 

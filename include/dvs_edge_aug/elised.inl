@@ -15,6 +15,8 @@
 #include "dvs_edge_aug/line_support.hpp"
 #include "dvs_edge_aug/tic_toc.hpp"
 
+#include <iostream>
+
 
 
 namespace event_mapping{
@@ -262,13 +264,20 @@ namespace event_mapping{
 
   TMP
   void SCOPE::showLines(){
-   for(auto it = lines_.begin(); it != lines_.end();++it){
+    int line_counter = 0;
+    std::cout<<"\n\n/************Start to print line params************/\n";
+    for(auto it = lines_.begin(); it != lines_.end();++it){
       if((*it)!=nullptr){
         if((*it)->getSize()>params.minDisplaySize_ && (*it)->major_axis_ > 3* (*it)->minor_axis_){
-
+          line_counter++;
           cv::Point first = (*it)->getFirst();
           cv::Point second = (*it)->getSecond();
-          cv::line(lineSupportVis_,first,second,cv::Scalar(((*it)->getColor()).x,((*it)->getColor()).y,((*it)->getColor()).z),1);
+          // cv::line(lineSupportVis_,first,second,cv::Scalar(((*it)->getColor()).x,((*it)->getColor()).y,((*it)->getColor()).z),1);
+          int line_id = (*it)->getId();
+          std::cout<<"--Line"<<line_id<<"--:"
+              <<"StartPoint:("<<first.x<<","<<first.y<<")  "
+              <<"EndPoint:("<<second.x<<","<<second.y<<")\n";
+          std::cout<<line_counter<<" lines have been detected************/\n\n";
         }
       }
      }    
