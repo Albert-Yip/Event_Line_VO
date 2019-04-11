@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+  <name>elised_plus_plus</name>
+  <version>0.1.0</version>
+  <description>ELiSed++ C++ implementation - Edge tracking in DVS camera</description>
+
+  <maintainer email="lamparta@student.ethz.ch">Lampart Andrea Luca</maintainer>
+
+  <license>GNU GPL</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+   <build_depend>tf</build_depend>
+  <build_depend>cmake_modules</build_depend>
+    
+  <run_depend>roscpp</run_depend>
+   <run_depend>tf</run_depend>
+  <run_depend>cmake_modules</run_depend>
+
+
+  <export>
+  </export>
+</package>
