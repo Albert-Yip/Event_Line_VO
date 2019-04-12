@@ -118,8 +118,16 @@ namespace event_mapping{
     }
 
     // intrinsics dvs
-    cameraMatrix_ = (cv::Mat_<double>(3,3) << 127.9115321697418, 0, 71.16039994925386, 0, 128.1735318288403, 74.01369983664087, 0, 0, 1);
-    distCoeffs_ = (cv::Mat_<double>(1,5) << -0.3541172895426445, 0.1401730900933051, -0.0004481769257326341, 0.000241525353746612, 0);
+    // cameraMatrix_ = (cv::Mat_<double>(3,3) << 127.9115321697418, 0, 71.16039994925386, 0, 128.1735318288403, 74.01369983664087, 0, 0, 1);
+    // distCoeffs_ = (cv::Mat_<double>(1,5) << -0.3541172895426445, 0.1401730900933051, -0.0004481769257326341, 0.000241525353746612, 0);
+
+    //From calib.txt: Camera parameters (fx fy cx cy k1 k2 p1 p2 k3)199.092366542 198.82882047 132.192071378 110.712660011 -0.368436311798 0.150947243557 -0.000296130534385 -0.000759431726241 0.0
+
+    cameraMatrix_ = (cv::Mat_<double>(3,3) << 
+                    199.092366542, 0, 132.192071378, 
+                    0, 198.82882047, 110.712660011, 
+                    0, 0, 1);
+    distCoeffs_ = (cv::Mat_<double>(1,5) << -0.368436311798,0.150947243557,-0.000296130534385,-0.000759431726241,0.0);
 
     // Create undistortion map
     createUndistortionMap();
@@ -287,22 +295,28 @@ namespace event_mapping{
 
 
   TMP
-  void SCOPE::render(){
-  if(params.visualizeIntegrated_){
+  void SCOPE::render( int show_counter){
+
+    
+    if(params.visualizeIntegrated_){
 
       std::lock_guard<std::mutex> lock(eventMutex_);
+      integratedFrame_.copyTo(integrated_);
+    }
 
-   integratedFrame_.copyTo(integrated_);
+    if(show_counter%5==0){
+      if(params.visualizeIntegrated_){
+        if(params.display_type_ == RED_BLUE ){
+            integratedFrame_ = cv::Scalar(0.5,0.5,0.5);
+        }
+        else{
+            integratedFrame_ = cv::Scalar(128);
+        }
+      }
+    }
 
-    if(params.display_type_ == RED_BLUE ){
-        integratedFrame_ = cv::Scalar(0.5,0.5,0.5);
-     }
-     else{
-        integratedFrame_ = cv::Scalar(128);
-     }
-  }
 
-   lineSupportVis_ = cv::Scalar(0.0,0.0,0.0);
+    lineSupportVis_ = cv::Scalar(0.0,0.0,0.0);
 
   // Render Line Supports
   // CAUTION! Don't render if not needed

@@ -74,7 +74,7 @@ public:
   /*!
    * \brief Render preview images
    */
-  void render();
+  void render(int show_counter);
 
 
 

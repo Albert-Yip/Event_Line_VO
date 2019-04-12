@@ -33,20 +33,21 @@ istream &read_event(istream &is, Event &new_event)
  */
 int main(int argc, char const *argv[])
 {
-    ifstream fin("/home/albert/Data/shapes_6dof/events.txt");
+    // ifstream fin("/home/albert/Data/shapes_6dof/events.txt");
     // ifstream fin("/home/albert/Data/poster_6dof/events.txt");
+    ifstream fin("/home/albert/Data/boxes_6dof/events.txt");
     Event new_event;
     int counter = 0;
     int show_counter = 1;
     cout<<"Start reading file\n";
-    Elised<128,128> line_detector(0xff);
+    Elised<128,128> line_detector(0xff,3.5);
     cv::namedWindow("win_1", CV_WINDOW_NORMAL); 
     cv::namedWindow("win_2", CV_WINDOW_NORMAL); 
     while(read_event(fin, new_event))
     {
         counter++;
         // cout<<counter<<" "<<new_event.timestamp<<" "<<new_event.x<<endl;
-        if(counter>10000000)
+        if(counter>1e7)
             break;        
 
         // Elised<240,180> line_detector(0xff);
@@ -56,10 +57,10 @@ int main(int argc, char const *argv[])
         line_detector.push(new_event.x, new_event.y, new_event.polarity, new_event.timestamp);
 
         
-        if(counter/10000==show_counter)
+        if(counter/500==show_counter)
         {
             line_detector.showLines();
-            line_detector.render();
+            line_detector.render(show_counter);
             cv::imshow("win_1",line_detector.getVisualizedIntegrated());
             cv::imshow("win_2",line_detector.getVisualizedElised());
             cv::waitKey(50);   
