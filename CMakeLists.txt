@@ -45,10 +45,11 @@ include_directories(
 # add_library(${PROJECT_NAME} STATIC
 #   ${${PROJECT_NAME}_CODE_BASE}
 # )
-add_executable(test1 src/test.cpp src/code_base/line_support.cpp)  
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./)
+add_executable(show_result src/test.cpp src/code_base/line_support.cpp)  
 
 target_link_libraries(
-  test1
+  show_result
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
 )
