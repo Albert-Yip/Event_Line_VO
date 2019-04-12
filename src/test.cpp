@@ -33,8 +33,8 @@ istream &read_event(istream &is, Event &new_event)
  */
 int main(int argc, char const *argv[])
 {
-    // ifstream fin("/home/albert/Data/shapes_6dof/events.txt");
-    ifstream fin("/home/albert/Data/poster_6dof/events.txt");
+    ifstream fin("/home/albert/Data/shapes_6dof/events.txt");
+    // ifstream fin("/home/albert/Data/poster_6dof/events.txt");
     Event new_event;
     int counter = 0;
     int show_counter = 1;

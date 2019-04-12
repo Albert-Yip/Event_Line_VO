@@ -16,6 +16,7 @@
 #include "dvs_edge_aug/tic_toc.hpp"
 
 #include <iostream>
+#include <string>
 
 
 
@@ -277,10 +278,10 @@ namespace event_mapping{
           std::cout<<"--Line"<<line_id<<"--:"
               <<"StartPoint:("<<first.x<<","<<first.y<<")  "
               <<"EndPoint:("<<second.x<<","<<second.y<<")\n";
-          std::cout<<line_counter<<" lines have been detected************/\n\n";
         }
       }
-     }    
+    }
+    std::cout<<line_counter<<" lines have been detected************/\n\n";    
   }
 
 
@@ -332,6 +333,8 @@ namespace event_mapping{
           cv::Point first = (*it)->getFirst();
           cv::Point second = (*it)->getSecond();
           cv::line(lineSupportVis_,first,second,cv::Scalar(((*it)->getColor()).x,((*it)->getColor()).y,((*it)->getColor()).z),1);
+          std::string tmp_id = std::to_string((*it)->getId());         ;
+          cv::putText(lineSupportVis_,tmp_id,first,cv::FONT_HERSHEY_DUPLEX, 0.25, cv::Scalar(0, 255,0 ));
         }
       }
      }
